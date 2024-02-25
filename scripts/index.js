@@ -1,8 +1,8 @@
-const content = document.querySelector('.content');
-const places = content.querySelector('.places');
-const card = places.querySelector('.card');
-// непонятно, как добавляются карточки    const addButton = content.querySelector('')
-const deleteButtonButton = card.querySelector('.card__delete-button');
+/* const content = document.querySelector('.content');
+const placesList = content.querySelector('.places__list');
+const card = placesList.querySelector('.card');
+const addButton = content.querySelector('.profile__add-button'); // непонятно, как добавляются карточки. Пока написал так
+// нужна ли эта константа здесь?   const deleteButton = card.querySelector('.card__delete-button'); 
 
 function addCard(cardTitle, cardImage) {
     const cardTemplate = document.querySelector('#card-template').content;
@@ -11,18 +11,22 @@ function addCard(cardTitle, cardImage) {
     cardElement.querySelector('.card__title').textContent = cardTitle;
     cardElement.querySelector('.card__image').textContent = cardImage; 
     cardElement.querySelector('.card__like-button').addEventListener('click', function (evt) {
-     
-      evt.target.classList.toggle('card__like_active');
-  });
+      evt.target.classList.toggle('.card__like-button_is-active ');
+    })
+    cardElement.querySelector('.card__delete-button').addEventListener('click', function (evt) {
+      
+    }
+  );
    
-    places.append(cardElement);
+    placesList.append(cardElement);
   }
   // не описан объект addButton !!!!!!
-  addButton.addEventListener('click', function () {
+  addButton.addEventListener('click', function(event) {
+    console.log('Произошло событие', event.type);
     const title = document.querySelector('.popup__input_type_card-name');
     const imageLink = document.querySelector('.popup__input_type_url');
   
-    addSong(title.value, imageLink.value);
+    addCard(title.value, imageLink.value);
      
     title.value = '';
     imageLink.value = '';
@@ -42,10 +46,14 @@ deleteButton.addEventListener('click', function () {
     }
   
     renderNoSongs();
-  });
+  }); */
   
 // @todo: Вывести карточки на страницу
 
-function initialAddCards() {
 
-}
+/* 
+  initialCards.forEach(function (item) {
+    addCard(item.name, item.link);
+});
+ */
+ 
