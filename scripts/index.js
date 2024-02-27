@@ -1,59 +1,35 @@
-/* const content = document.querySelector('.content');
-const placesList = content.querySelector('.places__list');
-const card = placesList.querySelector('.card');
-const addButton = content.querySelector('.profile__add-button'); // непонятно, как добавляются карточки. Пока написал так
-// нужна ли эта константа здесь?   const deleteButton = card.querySelector('.card__delete-button'); 
 
-function addCard(cardTitle, cardImage) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  
-    cardElement.querySelector('.card__title').textContent = cardTitle;
-    cardElement.querySelector('.card__image').textContent = cardImage; 
-    cardElement.querySelector('.card__like-button').addEventListener('click', function (evt) {
-      evt.target.classList.toggle('.card__like-button_is-active ');
-    })
-    cardElement.querySelector('.card__delete-button').addEventListener('click', function (evt) {
-      
-    }
-  );
-   
-    placesList.append(cardElement);
-  }
-  // не описан объект addButton !!!!!!
-  addButton.addEventListener('click', function(event) {
-    console.log('Произошло событие', event.type);
-    const title = document.querySelector('.popup__input_type_card-name');
-    const imageLink = document.querySelector('.popup__input_type_url');
-  
-    addCard(title.value, imageLink.value);
-     
-    title.value = '';
-    imageLink.value = '';
-  });
 // @todo: Темплейт карточки
 
 // @todo: DOM узлы
+const content = document.querySelector('.content');
+const placesList = content.querySelector('.places__list');
 
 // @todo: Функция создания карточки
+function addCard(cardTitle, cardImage, deleteFunction) {
+  const cardTemplate = document.querySelector('#card-template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
+  cardElement.querySelector('.card__title').textContent = cardTitle;
+  cardElement.querySelector('.card__image').src = cardImage; 
+  cardElement.querySelector('.card__image').alt = `Красивый вид ${cardTitle}`; 
+  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteFunction);        
+  
+  placesList.append(cardElement);
+}
 // @todo: Функция удаления карточки
-deleteButton.addEventListener('click', function () {
-    const songs = document.querySelectorAll('.song')
-  
-    for (let i = 0; i < songs.length; i++) {
-      songs[i].remove();
-    }
-  
-    renderNoSongs();
-  }); */
-  
+function deleteCard(event) {
+  const cardItem = event.target.closest('.card');  
+  console.log(cardItem.name); 
+  cardItem.remove();
+}
 // @todo: Вывести карточки на страницу
-
-
-/* 
-  initialCards.forEach(function (item) {
-    addCard(item.name, item.link);
+initialCards.forEach(function (item) {
+ 
+  addCard(item.name, item.link, deleteCard);
+ 
 });
- */
+
+
+
  
