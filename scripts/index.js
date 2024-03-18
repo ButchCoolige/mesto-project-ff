@@ -18,22 +18,21 @@ const newCardPopup = document.querySelector('.popup_type_new-card');
 const newCardForm = newCardPopup.querySelector('.popup__form');
 const placeInput = newCardForm.querySelector('.popup__input_type_card-name'); 
 const placeImage = newCardForm.querySelector('.popup__input_type_url');
+const imagePopup = document.querySelector('.popup_type_image');
+const imagePopupContent = imagePopup.querySelector('.popup__content_content_image');
+const imagePopupImage = imagePopupContent.querySelector('.popup__image');
+const imagePopupCaption = imagePopupContent.querySelector('.popup__caption');
 
 function handleFormSubmit(evt) {
-    evt.preventDefault(); 
-   // console.log("Поменяем данные профиля");
+    evt.preventDefault();    
     currentProfileName.textContent = nameInput.value;
     currentProfileJob.textContent = jobInput.value;
     editProfilePopup.classList.remove('popup_is-opened');
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit); 
 
-
-
-function createCard(cardTitle, cardImage, deleteFunction) {
+function createCard(cardTitle, cardImage, deleteFunction, likeFunction, popupFunction) {
   
   const cardElement = blankCard.cloneNode(true);
   const cardElementImage = cardElement.querySelector('.card__image')
@@ -42,18 +41,38 @@ function createCard(cardTitle, cardImage, deleteFunction) {
   cardElementImage.src = cardImage;
   cardElementImage.alt = `Красивый вид ${cardTitle}`;
   cardElement.querySelector('.card__delete-button').addEventListener('click', deleteFunction);
-
+  cardElement.querySelector('.card__like-button').addEventListener('click', likeFunction);
+  cardElement.querySelector('.card__image').addEventListener('click', popupFunction);
   return(cardElement);
 }
 
 function deleteCard(event) {
   const cardItem = event.target.closest('.card');
-  console.log(cardItem.name);
   cardItem.remove();
 }
 
+function likeCard(event) {
+  const cardLikeButton = event.target;
+  cardLikeButton.classList.toggle('card__like-button_is-active');
+}
+
+function popupImage(event) {
+  const currentCard =  event.target.parentNode;
+  const cardCaption = currentCard.querySelector('.card__title');
+  imagePopup.classList.toggle('popup_is-opened'); 
+  imagePopupImage.src = event.target.src;
+  imagePopupCaption.textContent = cardCaption.textContent;
+  document.addEventListener('keydown', escapePopup);
+  imagePopup.addEventListener('click', function(evt) {
+    if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
+      console.log('Закрытие попапа' + evt.target)
+      imagePopup.classList.remove('popup_is-opened');
+    }
+  });
+}
+
 initialCards.forEach(function (item) {
-  const newCard = createCard(item.name, item.link, deleteCard);
+  const newCard = createCard(item.name, item.link, deleteCard, likeCard, popupImage);
   placesList.append(newCard);
 });
 
@@ -95,7 +114,7 @@ function handleCardSubmit(evt) {
   evt.preventDefault(); 
     console.log("Создаём новую карточку");     
     newCardPopup.classList.remove('popup_is-opened');
-    const newCard = createCard(placeInput.value, placeImage.value, deleteCard);
+    const newCard = createCard(placeInput.value, placeImage.value, deleteCard, likeCard, popupImage);
   placesList.prepend(newCard);
 }
 
