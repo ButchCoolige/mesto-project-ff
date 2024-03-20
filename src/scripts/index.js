@@ -1,5 +1,5 @@
 import { createCard, deleteCard, likeCard } from './card.js'
-import {  openImage, escapePopup, openModal, closeModal} from './modal.js'   //handleFormSubmit,
+import {  openImage, escapePopup, openModal, closeModal} from './modal.js'  
 
 const cardTemplate = document.querySelector('#card-template').content;
 export const blankCard = cardTemplate.querySelector('.card');
@@ -54,5 +54,5 @@ newCardButton.addEventListener('click', (evt) => {
   newCardPopup.addEventListener('click', closeModal );
 })
 
-
+import '../pages/index.css';
 
