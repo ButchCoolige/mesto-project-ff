@@ -1,4 +1,4 @@
-import {imagePopup, editProfilePopup, newCardPopup} from './index.js'
+import {imagePopup, editProfilePopup, newCardPopup, currentProfileName, currentProfileJob} from './index.js'
 
 function openModal(element, inputFirstContent, inputSecondContent) {
     element.classList.toggle('popup_is-opened');
@@ -11,6 +11,7 @@ function openModal(element, inputFirstContent, inputSecondContent) {
   function closeModal(evt) {  
       if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
         evt.currentTarget.classList.remove('popup_is-opened');
+        evt.currentTarget.removeEventListener('click', closeModal);
       }  
   }
 
@@ -35,4 +36,15 @@ function openModal(element, inputFirstContent, inputSecondContent) {
     document.removeEventListener('keydown', escapePopup);}
 }
 
-export {  openImage, escapePopup, openModal, closeModal};
+function handleFormSubmit(evt) {
+  evt.preventDefault(); 
+  const formElement = editProfilePopup.querySelector('.popup__form');
+  const nameInput = formElement.querySelector('.popup__input_type_name'); 
+  const jobInput = formElement.querySelector('.popup__input_type_description');  
+  currentProfileName.textContent = nameInput.value;
+  currentProfileJob.textContent = jobInput.value;
+  editProfilePopup.classList.remove('popup_is-opened');
+  formElement.removeEventListener('submit', handleFormSubmit);
+}
+
+export {  openImage, escapePopup, openModal, closeModal, handleFormSubmit};

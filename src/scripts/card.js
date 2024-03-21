@@ -1,4 +1,5 @@
-import {blankCard} from './index.js'
+import {blankCard, newCardForm, newCardPopup, placesList} from './index.js'
+import { openImage } from './modal.js';
 
   function createCard(cardTitle, cardImage, deleteFunction, likeFunction, popupFunction) {
   
@@ -23,5 +24,15 @@ import {blankCard} from './index.js'
     const cardLikeButton = event.target;
     cardLikeButton.classList.toggle('card__like-button_is-active');
   }
+
+  function handleCardSubmit(evt) {
+    evt.preventDefault();        
+    newCardPopup.classList.remove('popup_is-opened');
+    const placeInput = newCardForm.querySelector('.popup__input_type_card-name'); 
+    const placeImage = newCardForm.querySelector('.popup__input_type_url');
+    const newCard = createCard(placeInput.value, placeImage.value, deleteCard, likeCard, openImage);
+    placesList.prepend(newCard);
+    newCardForm.removeEventListener('submit', handleCardSubmit);
+  }
  
-  export { createCard, deleteCard, likeCard };
+  export { createCard, deleteCard, likeCard, handleCardSubmit };
