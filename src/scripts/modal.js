@@ -23,6 +23,7 @@ function openModal(element, inputFirstContent, inputSecondContent) {
     const imagePopupCaption = imagePopupContent.querySelector('.popup__caption');
     imagePopup.classList.toggle('popup_is-opened'); 
     imagePopupImage.src = event.target.src;
+    imagePopupImage.alt = `Увеличенное изображение ${cardCaption.textContent}`;
     imagePopupCaption.textContent = cardCaption.textContent;
     document.addEventListener('keydown', escapePopup);
     imagePopup.addEventListener('click', closeModal);
