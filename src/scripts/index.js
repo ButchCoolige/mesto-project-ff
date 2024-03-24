@@ -21,16 +21,21 @@ const newCardButton = document.querySelector('.profile__add-button');
 export const imagePopup = document.querySelector('.popup_type_image');
 const popups = document.querySelectorAll('.popup')
 
+/* function handleFormSubmit(popup) {  
+  console.log('Запущена handleFormSubmit');
+  currentProfileName.textContent = profileNameInput.value;
+  currentProfileJob.textContent = profileJobInput.value;
+  closePopup(popup);  
+} */
+
 document.addEventListener('submit', function (evt) {
   evt.preventDefault(); 
-  console.log(evt.target.getAttribute('name'));
   if (evt.target.getAttribute('name') === 'edit-profile') {
-    console.log('Выбрали форму профиля');
-    handleFormSubmit;
-    }
-   if (evt.target.getAttribute('name') === 'new-place') {
-    handleCardSubmit;
-   }
+    handleFormSubmit(editProfilePopup);
+  }
+  if (evt.target.getAttribute('name') === 'new-place') {
+    handleCardSubmit(newCardPopup);
+  }
 });
 
 popups.forEach((popup) => {
@@ -62,18 +67,9 @@ initialCards.forEach(function (item) {
 });
 
 editProfileButton.addEventListener('click', function (evt) {
-  /* openModal(editProfilePopup, currentProfileName.textContent, currentProfileJob.textContent); */
   openPopup(editProfilePopup);
- profileNameInput.value = currentProfileName.textContent;
- profileJobInput.value = currentProfileJob.textContent;
-  /* const elementFirstInput = element.querySelector('.popup__input');
-    const elementSecondInput = elementFirstInput.nextElementSibling;
-    elementFirstInput.value = inputFirstContent;
-    elementSecondInput.value = inputSecondContent; */
-  /* formElement.addEventListener('submit', handleFormSubmit);
-  document.addEventListener('keydown', escapePopup);    
-  editProfilePopup.addEventListener('click', closePopup);  */
-  
+  profileNameInput.value = currentProfileName.textContent;
+  profileJobInput.value = currentProfileJob.textContent;
 });
 
 newCardButton.addEventListener('click', (evt) => {

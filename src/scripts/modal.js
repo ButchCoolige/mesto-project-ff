@@ -57,14 +57,15 @@ function handleEscape(evt) {
 }
 
 
-function handleFormSubmit(evt) {
-  evt.preventDefault(); 
+function handleFormSubmit(popup) {
+  /* evt.preventDefault();  */
   /* const formElement = editProfilePopup.querySelector('.popup__form');
   const nameInput = formElement.querySelector('.popup__input_type_name'); 
   const jobInput = formElement.querySelector('.popup__input_type_description'); */  
+  console.log('Запущена handleFormSubmit');
   currentProfileName.textContent = profileNameInput.value;
   currentProfileJob.textContent = profileJobInput.value;
-  closePopup(editProfilePopup);
+  closePopup(popup);
   /* editProfilePopup.classList.remove('popup_is-opened'); */
   /* formElement.removeEventListener('submit', handleFormSubmit); */
 }
