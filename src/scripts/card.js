@@ -1,6 +1,11 @@
-/* import {blankCard} from './index.js' */
 const cardTemplate = document.querySelector('#card-template').content;
 const blankCard = cardTemplate.querySelector('.card');
+const content = document.querySelector('.content');
+const placesList = content.querySelector('.places__list');
+
+function renderCard(item, method = "apppend") {  
+  placesList[ method ](item);
+}
 
   function createCard(cardTitle, cardImage, deleteFunction, likeFunction, popupFunction) {
   
@@ -27,4 +32,4 @@ const blankCard = cardTemplate.querySelector('.card');
   }
 
    
-  export { createCard, deleteCard, likeCard};
+  export { createCard, deleteCard, likeCard, renderCard, placesList};

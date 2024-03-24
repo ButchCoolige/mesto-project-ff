@@ -1,10 +1,8 @@
-import { createCard, deleteCard, likeCard} from './card.js'
+import { createCard, deleteCard, likeCard, renderCard, placesList} from './card.js'
 import { openImage, closePopup, openPopup, handleFormSubmit, profileNameInput, profileJobInput, currentProfileName, currentProfileJob} from './modal.js'  
 import { initialCards } from './cards.js'
 
-const content = document.querySelector('.content');
-const placesList = content.querySelector('.places__list');
-const editProfileButton = content.querySelector('.profile__edit-button');
+const editProfileButton = document.querySelector('.profile__edit-button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const newCardButton = document.querySelector('.profile__add-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
@@ -32,20 +30,19 @@ popups.forEach((popup) => {
       closePopup(popup)
     }
   })
-
 });
 
 function handleCardSubmit(evt) {
   const newCard = createCard(placeInput.value, placeImage.value, deleteCard, likeCard, openImage);
-  placesList.prepend(newCard);
+  renderCard(newCard, 'prepend'); 
   placeInput.value = '';
   placeImage.value = '';
-  closePopup(newCardPopup); 
+  closePopup(newCardPopup);   
 }
 
 initialCards.forEach(function (item) {
   const newCard = createCard(item.name, item.link, deleteCard, likeCard, openImage);
-  placesList.append(newCard);
+  renderCard(newCard, 'append');   
 });
 
 editProfileButton.addEventListener('click', function (evt) {
@@ -56,7 +53,7 @@ editProfileButton.addEventListener('click', function (evt) {
 
 newCardButton.addEventListener('click', (evt) => {
   openPopup(newCardPopup);
-})
+});
 
 import '../pages/index.css';
 
