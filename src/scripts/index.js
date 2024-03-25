@@ -1,15 +1,15 @@
-import { createCard, deleteCard, likeCard/* , renderCard */, placesList, handleCardClick } from './card.js'
+import { createCard, deleteCard, likeCard, handleCardClick } from './card.js'
 import { closePopup, openPopup } from './modal.js'  
 import { initialCards } from './cards.js'
 import '../pages/index.css'
 
+const content = document.querySelector('.content');
+const placesList = content.querySelector('.places__list');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const newCardButton = document.querySelector('.profile__add-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 const newCardPopupForm = document.forms["new-place"];
-const placeInput = newCardPopupForm.elements["place-name"]; 
-const placeImage = newCardPopupForm.elements.link;
 const popups = document.querySelectorAll('.popup');
 const cardOptions = { item: {}, deleteCard, likeCard, handleCardClick };
 const editProfileForm = document.forms["edit-profile"];
@@ -38,17 +38,17 @@ popups.forEach((popup) => {
     }
   })
 });
-function renderCard(item, method = 'apppend') {  
+
+function renderCard(item, method = 'append') {  
   cardOptions.item = item;
   const newCard = createCard(cardOptions);
   placesList[ method ](newCard);
 }
 
 function handleNewCardFormSubmit(form) {
-  cardOptions.cardTitle = placeInput.value;
-  cardOptions.cardImage = placeImage.value;
-  /* const newCard = createCard(cardOptions); */
-  renderCard(cardOptions, 'prepend'); 
+  cardOptions.item.name = form.elements["place-name"].value;
+  cardOptions.item.link = form.elements.link.value;
+  renderCard(cardOptions.item, 'prepend'); 
   form.reset(); 
   closePopup(newCardPopup);   
 }
@@ -59,12 +59,8 @@ function handleProfileFormSubmit(popup) {
   closePopup(popup);
 }
 
-
-initialCards.forEach(function (item) {
-   cardOptions.cardTitle = item.name;
-  cardOptions.cardImage = item.link;
- /* const newCard = createCard(cardOptions); */
-  renderCard(cardOptions, 'append');   
+initialCards.forEach(function (item) { 
+  renderCard(item, 'append');   
 });
 
 editProfileButton.addEventListener('click', function (evt) {
